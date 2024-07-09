@@ -19,7 +19,6 @@ class _MoodTrackerState extends State<MoodTracker> {
     {'emoji': '😴', 'label': 'Tired'},
   ];
 
-  // Initialize mood history with dummy data for 3 days
   final List<String> _moodHistory = ['Happy', 'Sad', 'Neutral'];
 
   void _addMoodToHistory(String mood) {
@@ -35,81 +34,114 @@ class _MoodTrackerState extends State<MoodTracker> {
       appBar: AppBar(
         title: const Text("Mood Tracker"),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const Text(
-              "How was your day?",
-              style: TextStyle(fontSize: 24),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              height: 150, // Adjust the height to fit your design
-              child: GridView.count(
-                crossAxisCount: 3,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: 1,
-                //physics: const NeverScrollableScrollPhysics(),
-                children: _moods.map((mood) {
-                  return ChoiceChip(
-                    label: Text(
-                      mood['emoji']!,
-                      style: const TextStyle(fontSize: 30),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final bool isLandscape = constraints.maxWidth > constraints.maxHeight;
+
+          return isLandscape
+              ? SingleChildScrollView(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: _buildMoodTrackerContent(constraints),
+                  ),
+                )
+              : SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
                     ),
-                    selected: _selectedMood == mood['label'],
-                    onSelected: (selected) {
-                      setState(() {
-                        _selectedMood = selected ? mood['label']! : '';
-                        if (selected) {
-                          _addMoodToHistory(mood['label']!);
-                        }
-                      });
-                    },
-                  );
-                }).toList(),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: _buildMoodTrackerContent(constraints),
+                    ),
+                  ),
+                );
+        },
+      ),
+    );
+  }
+
+  List<Widget> _buildMoodTrackerContent(BoxConstraints constraints) {
+    return [
+      const Text(
+        "How was your day?",
+        style: TextStyle(fontSize: 24),
+      ),
+      const SizedBox(height: 20),
+      SizedBox(
+        height: constraints.maxHeight *
+            0.3, // Adjust height relative to screen size
+        child: GridView.count(
+          crossAxisCount: 3,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+          childAspectRatio: 1,
+          shrinkWrap:
+              true, // Prevent GridView from taking up more space than necessary
+          physics: const NeverScrollableScrollPhysics(),
+          children: _moods.map((mood) {
+            return ChoiceChip(
+              label: Text(
+                mood['emoji']!,
+                style: const TextStyle(fontSize: 30),
               ),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              _selectedMood.isNotEmpty
-                  ? 'You selected: $_selectedMood'
-                  : 'Please select a mood',
-              style: const TextStyle(fontSize: 18),
-            ),
-            const SizedBox(height: 40),
-            const Text(
-              "Mood History (Last 3 Days)",
-              style: TextStyle(fontSize: 20),
-            ),
-            const SizedBox(height: 20),
-            _buildMoodHistoryBox(),
-          ],
+              selected: _selectedMood == mood['label'],
+              onSelected: (selected) {
+                setState(() {
+                  _selectedMood = selected ? mood['label']! : '';
+                  if (selected) {
+                    _addMoodToHistory(mood['label']!);
+                  }
+                });
+              },
+            );
+          }).toList(),
         ),
       ),
-    );
-  }
-
-  Widget _buildMoodHistoryBox() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(8.0),
+      const SizedBox(height: 20),
+      Text(
+        _selectedMood.isNotEmpty
+            ? 'You selected: $_selectedMood'
+            : 'Please select a mood',
+        style: const TextStyle(fontSize: 18),
       ),
-      child: _buildMoodHistoryChart(),
-    );
+      const SizedBox(height: 40),
+      const Text(
+        "Mood History (in last 3 Days)",
+        style: TextStyle(fontSize: 20),
+      ),
+      const SizedBox(height: 20),
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 7,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
+          ],
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        child: _buildMoodHistoryChart(constraints),
+      ),
+    ];
   }
 
-  Widget _buildMoodHistoryChart() {
+  Widget _buildMoodHistoryChart(BoxConstraints constraints) {
     final Map<String, int> moodCounts = {};
     for (var mood in _moodHistory) {
       moodCounts[mood] = (moodCounts[mood] ?? 0) + 1;
     }
 
-    return SizedBox(
-      height: 150,
+    return Container(
+      height:
+          constraints.maxHeight * 0.3, // Adjust height relative to screen size
+      width: constraints.maxWidth * 0.8, // Adjust width relative to screen size
+      padding: const EdgeInsets.all(15.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: _moods.map((mood) {
