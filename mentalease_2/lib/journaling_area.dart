@@ -13,7 +13,7 @@ class _JournalingAreaState extends State<JournalingArea> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Mood tracker"),
+        title: const Text("Journaling"),
       ),
     );
   }

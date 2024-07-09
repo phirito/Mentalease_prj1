@@ -13,7 +13,7 @@ class _MeditateAreaState extends State<MeditateArea> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Mood tracker"),
+        title: const Text("Meditate"),
       ),
     );
   }
