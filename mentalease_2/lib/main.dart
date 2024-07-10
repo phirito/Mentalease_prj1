@@ -43,18 +43,23 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Row(
           children: [
+            const Expanded(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text('Mental'),
+              ),
+            ),
             widget.logo,
-            const SizedBox(width: 10),
-            Text(widget.title),
+            const Expanded(
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text('Ease'),
+              ),
+            ),
           ],
         ),
       ),
-      body: PageView(
-        children: <Widget>[
-          _buildMainPage(context),
-          const HomeArea(), // Add HomeArea to the PageView
-        ],
-      ),
+      body: _buildMainPage(context),
     );
   }
 
@@ -65,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
           SizedBox(
             height: MediaQuery.of(context).size.height,
             child: const Center(
-              child: Text('Swipe left to go to Home Page'),
+              child: Text('Welcome to MentalEase'),
             ),
           ),
           ElevatedButton(
@@ -92,6 +97,20 @@ class _MyHomePageState extends State<MyHomePage> {
                     borderRadius: BorderRadius.circular(2))),
             child: const Text("Sign-Up"),
           ),
+          IconButton(
+            icon: const Icon(Icons.home,
+                color:
+                    Color.fromARGB(255, 116, 8, 0)), // Set the icon and color
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const HomeArea(); // Navigate to HomeArea
+              }));
+            },
+            splashColor: Colors
+                .transparent, // Optional: remove splash effect if not needed
+            highlightColor: Colors
+                .transparent, // Optional: remove highlight effect if not needed
+          )
         ],
       ),
     );

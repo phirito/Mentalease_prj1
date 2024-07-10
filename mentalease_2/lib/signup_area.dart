@@ -1,6 +1,5 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
+import 'package:mentalease_2/home_area.dart'; // Import HomeArea
 
 class SignUpArea extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -13,9 +12,16 @@ class SignUpArea extends StatelessWidget {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
-  void _signup() {
+  void _signup(BuildContext context) {
     if (_formKey.currentState!.validate()) {
-      // Perform login action
+      // Perform sign-up action
+      // For example, you could send data to a server here
+
+      // After a successful sign-up
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeArea()),
+      );
     }
   }
 
@@ -172,12 +178,14 @@ class SignUpArea extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 20),
-              TextButton(
-                onPressed: _signup,
+              ElevatedButton(
+                onPressed: () => _signup(context), // Pass context to _signup
                 style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.black,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(2))),
+                  foregroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
                 child: const Text("Sign-Up"),
               ),
             ],

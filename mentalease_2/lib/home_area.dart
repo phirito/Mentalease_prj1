@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mentalease_2/journaling_area.dart';
 import 'package:mentalease_2/meditate_area.dart';
 import 'package:mentalease_2/mood_tracker.dart';
+import 'package:mentalease_2/signup_area.dart'; // Import the LoginArea
 
 class HomeArea extends StatefulWidget {
   const HomeArea({super.key});
@@ -30,7 +31,13 @@ class _HomeAreaState extends State<HomeArea>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Greetings Users!'),
+        title: const Text(
+          'Greetings Users!',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor:
+            const Color.fromARGB(255, 116, 8, 0), // Maroon background
+        automaticallyImplyLeading: false,
       ),
       endDrawer: Drawer(
         child: ListView(
@@ -38,7 +45,8 @@ class _HomeAreaState extends State<HomeArea>
           children: <Widget>[
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color:
+                    Color.fromARGB(255, 145, 145, 145), // Maroon drawer header
               ),
               child: Text(
                 '',
@@ -69,6 +77,20 @@ class _HomeAreaState extends State<HomeArea>
                 Navigator.pop(context);
               },
             ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.login),
+              title: const Text('Sign Up'),
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return SignUpArea();
+                  }),
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -80,8 +102,8 @@ class _HomeAreaState extends State<HomeArea>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
+                    margin: const EdgeInsets.only(
+                        top: 20, left: 20, right: 20), // Space added at the top
                     padding: const EdgeInsets.fromLTRB(
                       15,
                       5,
@@ -96,12 +118,11 @@ class _HomeAreaState extends State<HomeArea>
                           color: Colors.black38,
                           spreadRadius: 5,
                           blurRadius: 7,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: Offset(0, 3), // Shadow position
                         ),
                       ],
                     ),
                     child: Column(
-                      mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Container(
                           padding: const EdgeInsets.all(14.0),
@@ -117,12 +138,13 @@ class _HomeAreaState extends State<HomeArea>
                           child: const Text(
                             'Leave tomorrow problems to tomorrows me',
                             style: TextStyle(fontSize: 16),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
                   Column(
                     children: [
                       ElevatedButton(
@@ -135,7 +157,8 @@ class _HomeAreaState extends State<HomeArea>
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black54,
+                            backgroundColor: const Color.fromARGB(
+                                255, 116, 8, 0), // Maroon button
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
@@ -154,7 +177,8 @@ class _HomeAreaState extends State<HomeArea>
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black54,
+                            backgroundColor: const Color.fromARGB(
+                                255, 116, 8, 0), // Maroon button
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
@@ -173,7 +197,8 @@ class _HomeAreaState extends State<HomeArea>
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black54,
+                            backgroundColor: const Color.fromARGB(
+                                255, 116, 8, 0), // Maroon button
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:mentalease_2/home_area.dart';
 
 class LoginArea extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _login() {
+  void _login(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       // Perform login action
+      Navigator.of(context).push(_createPageTransition(const HomeArea()));
     }
   }
 
@@ -64,7 +66,7 @@ class LoginArea extends StatelessWidget {
               ),
               const SizedBox(height: 32.0),
               ElevatedButton(
-                onPressed: _login,
+                onPressed: () => _login(context),
                 style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
@@ -75,6 +77,23 @@ class LoginArea extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  PageRouteBuilder _createPageTransition(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.easeInOut;
+
+        var tween = Tween(begin: begin, end: end);
+        var curvedAnimation = CurvedAnimation(parent: animation, curve: curve);
+        var offsetAnimation = tween.animate(curvedAnimation);
+
+        return SlideTransition(position: offsetAnimation, child: child);
+      },
     );
   }
 }
