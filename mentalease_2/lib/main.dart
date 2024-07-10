@@ -12,9 +12,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MyHomePage(
+        logo: Image.asset(
+          'assets/images/mentalease_logo.png',
+          width: 50,
+          height: 50,
+        ),
         title: 'MentalEase',
       ),
     );
@@ -22,8 +27,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required this.logo, required this.title});
 
+  final Widget logo;
   final String title;
 
   @override
@@ -35,7 +41,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Row(
+          children: [
+            widget.logo,
+            const SizedBox(width: 10),
+            Text(widget.title),
+          ],
+        ),
       ),
       body: PageView(
         children: <Widget>[
@@ -74,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 return SignUpArea();
               }));
             },
-            style: ElevatedButton.styleFrom(
+            style: TextButton.styleFrom(
                 foregroundColor: Colors.black,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(2))),
