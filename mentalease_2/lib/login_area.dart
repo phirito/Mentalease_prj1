@@ -19,64 +19,79 @@ class LoginArea extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Login Page"),
+        title: const Text("Sign-In"),
+        backgroundColor: const Color.fromARGB(255, 116, 8, 0),
+        elevation: 0,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextFormField(
-                controller: _usernameController,
-                decoration: InputDecoration(
+        child: Center(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildTextField(
+                  controller: _usernameController,
                   labelText: 'Username',
-                  prefixIcon: const Icon(Icons.person),
-                  border: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 1, color: Colors.blue),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
+                  icon: Icons.person,
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your username';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16.0),
-              TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(
+                const SizedBox(height: 16.0),
+                _buildTextField(
+                  controller: _passwordController,
                   labelText: 'Password',
-                  prefixIcon: const Icon(Icons.lock),
-                  border: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 1, color: Colors.blue),
-                    borderRadius: BorderRadius.circular(15),
+                  icon: Icons.lock,
+                  obscureText: true,
+                ),
+                const SizedBox(height: 32.0),
+                ElevatedButton(
+                  onPressed: () => _login(context),
+                  style: ElevatedButton.styleFrom(
+                    iconColor:
+                        const Color.fromARGB(255, 116, 8, 0), // Button color
+                    backgroundColor: Colors.white, // Text color
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text(
+                    "Sign In",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 116, 8, 0),
+                    ),
                   ),
                 ),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: () => _login(context),
-                style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.black,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10))),
-                child: const Text("Sign-In"),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String labelText,
+    required IconData icon,
+    bool obscureText = false,
+  }) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: labelText,
+        prefixIcon: Icon(icon, color: const Color.fromARGB(255, 116, 8, 0)),
+        border: OutlineInputBorder(
+          borderSide: const BorderSide(color: Color.fromARGB(255, 116, 8, 0)),
+          borderRadius: BorderRadius.circular(15),
+        ),
+      ),
+      obscureText: obscureText,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter your $labelText';
+        }
+        return null;
+      },
     );
   }
 

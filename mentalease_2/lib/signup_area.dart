@@ -30,6 +30,10 @@ class SignUpArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Sign Up"),
+        backgroundColor: const Color.fromARGB(255, 218, 218, 218),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(

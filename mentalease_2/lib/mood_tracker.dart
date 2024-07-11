@@ -82,11 +82,14 @@ class _MoodTrackerState extends State<MoodTracker> {
                 ),
               ),
               SizedBox(height: mediaQuery.size.height * 0.02),
-              Text(
-                _selectedMood.isNotEmpty
-                    ? 'You selected: $_selectedMood'
-                    : 'Please select a mood',
-                style: TextStyle(fontSize: mediaQuery.textScaleFactor * 18),
+              Container(
+                alignment: Alignment.center,
+                child: Text(
+                  _selectedMood.isNotEmpty
+                      ? 'You selected: $_selectedMood'
+                      : 'Please select a mood',
+                  style: TextStyle(fontSize: mediaQuery.textScaleFactor * 18),
+                ),
               ),
               SizedBox(height: mediaQuery.size.height * 0.05),
               Text(
@@ -99,15 +102,7 @@ class _MoodTrackerState extends State<MoodTracker> {
                     horizontal: mediaQuery.size.width * 0.05,
                     vertical: mediaQuery.size.height * 0.02),
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 7,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
+                  color: const Color.fromARGB(255, 255, 255, 255),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: _buildMoodHistoryChart(mediaQuery),
@@ -160,7 +155,7 @@ class _MoodTrackerState extends State<MoodTracker> {
                         ? barHeight
                         : mediaQuery.size.height * 0.0,
                     decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: const Color.fromARGB(255, 116, 8, 0),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.2), // Shadow color

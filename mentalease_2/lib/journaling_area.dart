@@ -80,7 +80,10 @@ class _JournalingAreaState extends State<JournalingArea> {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: _addJournalEntry,
-            child: const Text("Add Entry"),
+            child: const Text(
+              "Add Entry",
+              style: TextStyle(color: Color.fromARGB(255, 116, 8, 0)),
+            ),
           ),
           const SizedBox(height: 20),
           const Text(
@@ -101,7 +104,10 @@ class _JournalingAreaState extends State<JournalingArea> {
                 _addChore(_noteController.text);
               }
             },
-            child: const Text("Add Note"),
+            child: const Text(
+              "Add Note",
+              style: TextStyle(color: Color.fromARGB(255, 116, 8, 0)),
+            ),
           ),
           const SizedBox(height: 20),
           const Text(

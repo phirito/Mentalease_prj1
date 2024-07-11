@@ -77,8 +77,8 @@ class _MeditateAreaState extends State<MeditateArea>
                     value: _start / 60,
                     strokeWidth: 10,
                     backgroundColor: Colors.grey.shade300,
-                    valueColor:
-                        const AlwaysStoppedAnimation<Color>(Colors.blue),
+                    valueColor: const AlwaysStoppedAnimation<Color>(
+                        Color.fromARGB(255, 116, 8, 0)),
                   ),
                 ),
                 Text(
@@ -91,19 +91,22 @@ class _MeditateAreaState extends State<MeditateArea>
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                ElevatedButton(
+                IconButton(
                   onPressed: _startTimer,
-                  child: const Text("Start"),
+                  icon: const Icon(Icons.play_arrow), // Play icon for "Start"
+                  tooltip: 'Start',
                 ),
                 const SizedBox(width: 10),
-                ElevatedButton(
+                IconButton(
                   onPressed: _pauseTimer,
-                  child: const Text("Pause"),
+                  icon: const Icon(Icons.pause), // Pause icon for "Pause"
+                  tooltip: 'Pause',
                 ),
                 const SizedBox(width: 10),
-                ElevatedButton(
+                IconButton(
                   onPressed: _resetTimer,
-                  child: const Text("Reset"),
+                  icon: const Icon(Icons.refresh), // Refresh icon for "Reset"
+                  tooltip: 'Reset',
                 ),
               ],
             ),

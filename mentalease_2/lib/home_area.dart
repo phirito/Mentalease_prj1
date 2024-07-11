@@ -1,4 +1,7 @@
+library flashy_tab_bar2;
+
 import 'package:flutter/material.dart';
+import 'package:flashy_tab_bar2/flashy_tab_bar2.dart'; // Import the FlashyTabBar package
 import 'package:mentalease_2/journaling_area.dart';
 import 'package:mentalease_2/meditate_area.dart';
 import 'package:mentalease_2/mood_tracker.dart';
@@ -119,28 +122,41 @@ class _HomeAreaState extends State<HomeArea> {
           const JournalingArea(),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+      bottomNavigationBar: FlashyTabBar(
+        selectedIndex: _selectedIndex,
+        height: 60,
+        iconSize: 24,
+        backgroundColor: Colors.white,
+        animationDuration: const Duration(milliseconds: 300),
+        animationCurve: Curves.easeInOut,
+        showElevation: true,
+        items: [
+          FlashyTabBarItem(
+            icon: const Icon(Icons.home),
+            title: const Text('Home'),
+            activeColor: const Color.fromARGB(255, 116, 8, 0), // Maroon color
+            inactiveColor: Colors.grey,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.track_changes),
-            label: 'Mood Tracker',
+          FlashyTabBarItem(
+            icon: const Icon(Icons.track_changes),
+            title: const Text('Mood'),
+            activeColor: const Color.fromARGB(255, 116, 8, 0), // Maroon color
+            inactiveColor: Colors.grey,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.spa),
-            label: 'Meditate',
+          FlashyTabBarItem(
+            icon: const Icon(Icons.spa),
+            title: const Text('Meditate'),
+            activeColor: const Color.fromARGB(255, 116, 8, 0), // Maroon color
+            inactiveColor: Colors.grey,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: 'Journaling',
+          FlashyTabBarItem(
+            icon: const Icon(Icons.book),
+            title: const Text('Journaling'),
+            activeColor: const Color.fromARGB(255, 116, 8, 0), // Maroon color
+            inactiveColor: Colors.grey,
           ),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: const Color.fromARGB(255, 116, 8, 0), // Maroon color
-        onTap: _onItemTapped,
+        onItemSelected: _onItemTapped,
       ),
     );
   }
@@ -182,7 +198,7 @@ class _HomeAreaState extends State<HomeArea> {
                       Container(
                         padding: const EdgeInsets.all(16.0),
                         child: const Text(
-                          'Suicide is a permanent solution to temporary problems if, you are that depressed reach out to someone',
+                          'All our dreams can come true, if we have the courage to pursue them. \n\n-Walt Disney',
                           style: TextStyle(fontSize: 16),
                           textAlign: TextAlign.center,
                         ),
@@ -191,7 +207,66 @@ class _HomeAreaState extends State<HomeArea> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                // You can add other widgets here if needed
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      width: 320,
+                      height: 150,
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 116, 8, 0),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Horizontal Calendar',
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        width: 250,
+                        height: 150,
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 187, 187, 187),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'Your Mood Today',
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        width: 200,
+                        height: 150,
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 255, 255, 255),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'To-do list:',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                fontSize: 18),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
