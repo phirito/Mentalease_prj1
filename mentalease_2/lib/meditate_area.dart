@@ -62,9 +62,6 @@ class _MeditateAreaState extends State<MeditateArea>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Meditate"),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -80,7 +77,8 @@ class _MeditateAreaState extends State<MeditateArea>
                     value: _start / 60,
                     strokeWidth: 10,
                     backgroundColor: Colors.grey.shade300,
-                    valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
+                    valueColor:
+                        const AlwaysStoppedAnimation<Color>(Colors.blue),
                   ),
                 ),
                 Text(

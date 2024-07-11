@@ -49,9 +49,6 @@ class _JournalingAreaState extends State<JournalingArea> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Journaling"),
-      ),
       body: PageView(
         controller: _pageController,
         children: [
